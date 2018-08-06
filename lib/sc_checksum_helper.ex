@@ -53,7 +53,7 @@ defmodule ScChecksumHelper do
     |> Base.encode16(case: :lower)
   end
 
-  defp calculate_v3_checksum(sc_request, params) do
+  defp calculate_v3_checksum(_sc_request, _params) do
     "Implement me!"
   end
 
