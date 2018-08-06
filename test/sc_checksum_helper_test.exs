@@ -8,10 +8,16 @@ defmodule ScChecksumHelperTest do
 
   test "valid checksum v4" do
     sc_request = %ScRequest{secret_key: "s3cr3t"}
-    params = %{total_amount: "1", item_name: "item1"}
+    params = %{total_amount: "1", item_name: "item1", timestamp: "2018-08-06.13:36:28"}
     version = :v4
 
     assert ScChecksumHelper.get_link!(sc_request, params, version) ==
-             "https://secure.safecharge.com?item_name=item1&total_amount=1&checksum=9a19621aac30c7b153172f2eee61ece86508d0a99b1b809040c2f479a838748f"
+             "https://secure.safecharge.com
+             ?item_name=item1
+             &timestamp=2018-08-06.13%3A36%3A28
+             &total_amount=1
+             &version=4.0.0
+             &checksum=909292fe5fac1258b76555e8d1252c2caaca049dd4a42aa600e921ac7d4e3c18"
+             |> String.replace(~r/\r|\n| /, "")
   end
 end

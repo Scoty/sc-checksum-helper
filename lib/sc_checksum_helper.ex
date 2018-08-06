@@ -28,15 +28,17 @@ defmodule ScChecksumHelper do
   end
 
   defp get_v4_link(sc_request, params) do
-    Map.put(params, :version, "4.0.0")
-    Map.put_new(params, :time_stamp, get_current_timestamp())
+    params = params
+             |> Map.put(:version, "4.0.0")
+             |> Map.put_new(:timestamp, get_current_timestamp())
     checksum = calculate_v4_checksum(sc_request, params)
     build_url(sc_request, params, checksum)
   end
 
   defp get_v3_link(sc_request, params) do
-    Map.put(params, :version, "3.0.0")
-    Map.put_new(params, :time_stamp, get_current_timestamp())
+    params = params
+             |> Map.put(:version, "3.0.0")
+             |> Map.put_new(:timestamp, get_current_timestamp())
     checksum = calculate_v3_checksum(sc_request, params)
     build_url(sc_request, params, checksum)
   end
