@@ -12,7 +12,7 @@ defmodule ScChecksumHelper do
   @type sc_request :: %ScRequest{secret_key: String.t(), algorithm: atom(), charset: atom(), server_url: String.t()}
   @spec get_link!(sc_request, map(), atom()) :: String.t()
   def get_link!(sc_request, params, version) do
-    validate_request!(params)
+    validate_request!(sc_request, params)
     case version do
       :v4 -> get_v4_link(sc_request, params)
       :v3 -> get_v3_link(sc_request, params)
@@ -20,11 +20,9 @@ defmodule ScChecksumHelper do
     end
   end
 
-  defp validate_request!(params) do
+  defp validate_request!(sc_request, params) do
     # add validation
-    if (params == nil) do
-      raise "Missing required parameters!"
-    end
+    if (sc_request == nil or params == nil), do: raise "Missing required parameters!"
   end
 
   defp get_v4_link(sc_request, params) do
